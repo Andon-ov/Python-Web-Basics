@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+{% block page_content %}
+
+    <div class="container">
+        <!-- My Recipes -->
+        <h1>My Recipes</h1>
+        <!-- If not have recipes -->
+        {% if not recipes %}
+            <h2>There are no recipes.</h2>
+        {% else %}
+            <!-- all recipes -->
+
+            {% for recipe in recipes %}
+                <div class="items-container">
+                <div class="item">
+
+                    <!-- title -->
+                    <h2>{{ recipe.title }}</h2>
+                    <!-- img -->
+                    <img class="detail-img" src="{{ recipe.image_url }}" alt="recipe image">
+                    <!-- description -->
+                    <div class="{{ recipe.description }}">
+                        <p>{{ recipe.description }}</p>
+                    </div>
+                    <!-- buttons -->
+                    <div class="buttons-container">
+                        <a class="button detail" href="{% url 'details recipe' recipe.pk %}">Details</a>
+                        <a class="button edit" href="{% url 'edit recipe' recipe.pk %}">Edit</a>
+                        <a class="button delete" href="{% url 'delete recipe' recipe.pk %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
