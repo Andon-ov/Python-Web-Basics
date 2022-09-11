@@ -49,8 +49,9 @@ def delete_recipe(request, pk):
         form = DeleteRecipeForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-        recipe.delete()
+            # recipe.delete()
         return redirect('show index')
+
     else:
         form = DeleteRecipeForm(instance=recipe)
 

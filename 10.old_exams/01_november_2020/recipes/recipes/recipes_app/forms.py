@@ -30,13 +30,6 @@ class DeleteRecipeForm(forms.ModelForm):
             field.widget.attrs['readonly'] = 'readonly'
             field.widget.attrs['disabled'] = 'disabled'
 
-        # self.fields['title'].widget.attrs['readonly'] = True
-        # self.fields['image_url'].widget.attrs['readonly'] = True
-        # self.fields['description'].widget.attrs['readonly'] = True
-        # self.fields['ingredients'].widget.attrs['readonly'] = True
-        # self.fields['time'].widget.attrs['readonly'] = True
-            # field.required = False
-
     def save(self, commit=True):
         self.instance.delete()
         return self.instance
