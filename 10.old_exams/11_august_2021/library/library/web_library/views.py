@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from library.web_library.form import CreateProfileForm
+from library.web_library.form import CreateProfileForm, AddBookForm, DeleteBookForm
 from library.web_library.models import Book, Profile
 
 
@@ -26,7 +26,18 @@ def home_page(request):
 
 
 def add_book_page(request):
-    return render(request, 'add-book.html')
+    if request.method == 'POST':
+        form = AddBookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = AddBookForm()
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'add-book.html', context)
 
 
 def edit_book_page(request, pk):
@@ -46,10 +57,26 @@ def edit_book_page(request, pk):
     return render(request, 'edit-book.html', context)
 
 
+def delete_book_page(request, pk):
+    book = Book.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = DeleteBookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = DeleteBookForm(instance=book)
+    context = {
+        'form': form,
+        'book': book
+    }
+
+    return render(request, 'delete-book.html', context)
+
 def book_details_page(request, pk):
     book = Book.objects.get(pk=pk)
     # if request.method == 'POST':
-    #     form = EditRecipeForm(request.POST, instance=recipe)
+        # form = EditRecipeForm(request.POST, instance=recipe)
     #     if form.is_valid():
     #         form.save()
     #         return redirect('show index')

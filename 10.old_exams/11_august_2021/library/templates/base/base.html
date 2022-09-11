@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/static/images/library.jpg" type="image/x-icon"/>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" href="{% static 'images/library.jpg' %}" type="image/x-icon"/>
+    <link rel="stylesheet" href=" {% static 'css/styles.css' %}">
     <title>Online Books Library</title>
 </head>
 
@@ -15,11 +16,11 @@
         <!-- Navigation -->
         <nav class="navbar">
             <section class="navbar-dashboard">
-                <a href="#">Dashboard</a>
+                <a href="{% url 'show index' %}">Dashboard</a>
                 <div id="user">
                     <span>Welcome, Peter</span>
-                    <a class="button" href="#">Add Book</a>
-                    <a class="button" href="#">Profile</a>
+                    <a class="button" href="{% url 'add book page' %}">Add Book</a>
+                    <a class="button" href="{% url 'profile page' %}">Profile</a>
                 </div>
             </section>
         </nav>
