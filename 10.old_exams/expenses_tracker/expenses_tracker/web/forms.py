@@ -55,14 +55,12 @@ class EditExpenseForm(forms.ModelForm):
 
 class DeleteExpenseForm(forms.ModelForm):
 
-    def __int__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for (_, field) in self.fields.items():
             field.widget.attrs['readonly'] = 'readonly'
-            field.widget.attrs['disabled'] = 'disabled'
+        #     field.widget.attrs['disabled'] = 'disabled'
 
-        # self.fields['field'].widget.attrs['readonly'] = True
-            
 
     def save(self, commit=True):
         # image_path = self.instance.image.path
