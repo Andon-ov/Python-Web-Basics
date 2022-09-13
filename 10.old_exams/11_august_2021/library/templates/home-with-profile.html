@@ -1,32 +1,40 @@
 {% extends 'base/base.html' %}
-{% block page_content %}`
-    <!-- Dashboard Page-->
-    <section id="dashboard-page" class="dashboard">
-        <h1>Dashboard</h1>
-        <!-- Display paragraph: If the user doesn't have any books  -->
-        <p class="no-books">No books in database!</p>
-        <!-- Display ul: with list-items for every books if any -->
-        <ul class="my-books-list">
-            <li class="myBooks">
-                <h3>A Court of Thorns...</h3>
-                <p>Type: Fiction</p>
-                <p class="img"><img src="https://images-na.ssl-images-amazon.com/images/I/81Z-yHX8OcL.jpg" alt=""></p>
-                <a class="button" href="#">Details</a>
-            </li>
+{% block page_content %}
+     <section id="dashboard-page" class="dashboard">
+            <h1>Dashboard</h1>
+            {% if not books %}
+             <!-- Display paragraph: If the user doesn't have any books  -->
+            <p class="no-books">No books in database!</p>
+            {% else %}
+            <!-- Display ul: with list-items for every books if any -->
 
-            <li class="myBooks">
-                <h3>Outlander</h3>
-                <p>Type: Other</p>
-                <p class="img"><img src="https://images-na.ssl-images-amazon.com/images/I/71pjU7wfZFL.jpg" alt=""></p>
-                <a class="button" href="#">Details</a>
-            </li>
+{#               i will fix this - If there is a profile and books. You should display maximum of 3 books #}
+{#                on a single line (the next 3 books should be positioned below, on a second line)#}
 
-            <li class="myBooks">
-                <h3>War and Peace</h3>
-                <p>Type: Philosophy</p>
-                <p class="img"><img src="https://images-na.ssl-images-amazon.com/images/I/A1aDb5U5myL.jpg" alt=""></p>
-                <a class="button" href="#">Details</a>
-            </li>
-        </ul>
-    </section>
+            {% for book in books %}
+            <ul class="my-books-list">
+                <li class="myBooks">
+                            <h3>{{ book.title }}</h3>
+                            <p>Type: {{ book.type }}</p>
+                            <p class="img"><img src="{{ book.image }}" alt=""></p>
+                            <a class="button" href="{% url 'book details page' book.pk %}">Details</a>
+                </li>
+
+                <li class="myBooks">
+                            <h3>{{ book.title }}</h3>
+                            <p>Type: {{ book.type }}</p>
+                            <p class="img"><img src="{{ book.image }}" alt=""></p>
+                            <a class="button" href="{% url 'book details page' book.pk %}">Details</a>
+                </li>
+
+                <li class="myBooks">
+                            <h3>{{ book.title }}</h3>
+                            <p>Type: {{ book.type }}</p>
+                            <p class="img"><img src="{{ book.image }}" alt=""></p>
+                            <a class="button" href="{% url 'book details page' book.pk %}">Details</a>
+                </li>
+            </ul>
+        {% endfor %}
+        {% endif %}
+        </section>
 {% endblock %}

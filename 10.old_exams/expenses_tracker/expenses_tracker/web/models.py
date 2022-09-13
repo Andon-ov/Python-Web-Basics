@@ -39,7 +39,8 @@ class Profile(models.Model):
 
     budget = models.FloatField(
         default=BUDGET_DEFAULT_VALUE,
-        validators=(MinValueValidator(BUDGET_MIN_VALUE),
+        validators=(
+            MinValueValidator(BUDGET_MIN_VALUE),
                     ),
     )
     # The budget should not be below 0, when created or edited.
@@ -52,6 +53,7 @@ class Profile(models.Model):
             MaxFileSizeInMbValidator(IMAGE_MAX_SIZE_IN_MB),
         ),
     )
+
     @property
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -73,5 +75,6 @@ class Expense(models.Model):
         null=True,
         blank=True,
     )
+
     class Meta:
         ordering = ('title', 'price')

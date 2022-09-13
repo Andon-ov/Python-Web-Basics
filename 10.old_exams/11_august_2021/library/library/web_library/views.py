@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 
-from library.web_library.form import CreateProfileForm, AddBookForm, DeleteBookForm
+from library.web_library.form import CreateProfileForm, AddBookForm, EditBookForm, DeleteProfileForm
 from library.web_library.models import Book, Profile
 
 
-# Create your views here.
 def get_profile():
     profiles = Profile.objects.all()
     if profiles:
@@ -13,6 +12,7 @@ def get_profile():
 
 
 def home_page(request):
+    books = Book.objects.all()
     profile = get_profile()
     form = CreateProfileForm
     if not profile:
@@ -21,6 +21,7 @@ def home_page(request):
     context = {
         'profile': profile,
         'form': form,
+        'books': books,
     }
     return render(request, 'home-with-profile.html', context)
 
@@ -35,22 +36,23 @@ def add_book_page(request):
         form = AddBookForm()
     context = {
         'form': form,
+        'title': 'Create Modbus Device',
     }
 
-    return render(request, 'add-book.html', context)
+    return render(request, 'add-book.html', context, )
 
 
 def edit_book_page(request, pk):
     book = Book.objects.get(pk=pk)
-    # if request.method == 'POST':
-    #     form = EditRecipeForm(request.POST, instance=recipe)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('show index')
-    # else:
-    #     form = EditRecipeForm(instance=recipe)
+    if request.method == 'POST':
+        form = EditBookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = EditBookForm(instance=book)
     context = {
-        # 'form': form,
+        'form': form,
         'book': book
     }
 
@@ -58,48 +60,50 @@ def edit_book_page(request, pk):
 
 
 def delete_book_page(request, pk):
-    book = Book.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = DeleteBookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect('show index')
-    else:
-        form = DeleteBookForm(instance=book)
-    context = {
-        'form': form,
-        'book': book
-    }
+    # OrderSparePart is the Model of which the object is present
 
-    return render(request, 'delete-book.html', context)
+    ob = Book.objects.get(pk=pk)
+    ob.delete()
+    return redirect('show index')  # for best results, redirect to the same page from where delete function is called
+
 
 def book_details_page(request, pk):
     book = Book.objects.get(pk=pk)
-    # if request.method == 'POST':
-        # form = EditRecipeForm(request.POST, instance=recipe)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('show index')
-    # else:
-    #     form = EditRecipeForm(instance=recipe)
+
     context = {
-        # 'form': form,
         'book': book
     }
     return render(request, 'book-details.html', context)
 
 
 def profile_page(request):
-    return render(request, 'profile.html')
+    profile = get_profile()
+    context = {
+        'profile': profile
+    }
+
+    return render(request, 'profile.html', context)
 
 
-def edit_profile_page(request):
-    return render(request, 'edit-profile.html')
+def edit_profile_page(request, ):
+    profile = get_profile()
+    if request.method == 'POST':
+        form = CreateProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('show index')
+    else:
+        form = CreateProfileForm(instance=profile)
+    context = {
+        'form': form,
+        'profile': profile
+    }
+    return render(request, 'edit-profile.html', context)
 
 
 def create_profile_page(request):
     if request.method == 'POST':
-        form = CreateProfileForm(request.POST, request.FILES, )
+        form = CreateProfileForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('show index')
@@ -113,4 +117,25 @@ def create_profile_page(request):
 
 
 def delete_profile_page(request):
-    return render(request, 'delete-profile.html')
+    profile = get_profile()
+
+    if request.method == "POST":
+        form = DeleteProfileForm(request.POST, instance=profile, )
+        if form.is_valid():
+            form.save()
+        return redirect('show index')
+    else:
+        form = DeleteProfileForm(instance=profile)
+        context = {
+            'form': form,
+            'profile': profile
+        }
+    return render(request, 'delete-profile.html', context)
+
+
+def base_page(request):
+    profile = get_profile()
+    context = {
+        'profile': profile
+    }
+    return render(request, 'base/base.html', context)
