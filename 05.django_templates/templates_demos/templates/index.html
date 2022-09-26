@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Original: {{ title }}</h1>
+<h1>Upper: {{ title|upper }}</h1>
+<ul>
+    <li>Make List: {{ value|make_list }}</li>
+{#    info['address'] in python  #}
+    <li>{{ info.address}}</li>
+    <li>{{ student.get_info }}</li> {# Wrong #}
+    <li>{{ student_info }}</li>     {# Right #}
+    <li>Add {{ 2|add:3|add:5}}</li>
+    <li>Truncate chars: {{title|truncatechars:6}}</li>
+    <li>Data Time: {{now}}</li>
+    <li>Format Data: {{now|date:'d:M:y'}}</li>
+</ul>
+</body>
+</html>
