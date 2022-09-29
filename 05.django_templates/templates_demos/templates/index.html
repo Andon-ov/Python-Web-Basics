@@ -1,22 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Original: {{ title }}</h1>
-<h1>Upper: {{ title|upper }}</h1>
-<ul>
-    <li>Make List: {{ value|make_list }}</li>
-{#    info['address'] in python  #}
-    <li>{{ info.address}}</li>
-    <li>{{ student.get_info }}</li> {# Wrong #}
-    <li>{{ student_info }}</li>     {# Right #}
-    <li>Add {{ 2|add:3|add:5}}</li>
-    <li>Truncate chars: {{title|truncatechars:6}}</li>
-    <li>Data Time: {{now}}</li>
-    <li>Format Data: {{now|date:'d:M:y'}}</li>
-</ul>
-</body>
-</html>
+ <!-- extend base.html to use in `block page_content` -->
+{% extends 'base/base.html' %}
+{% load fillters %} {# this is name of the file #}
+{% load tags %}     {# this is name of the file #}
+
+    <!-- Title -->
+{% block page_titel %}{{ title }}{% endblock %}
+ <!-- Start block page content -->
+{% block page_content %}
+    csrf token: {{ csrf_token }}
+    <br>
+    <div>
+        Original: {{ values }}
+    </div>
+    <div>
+        My filter `odd`: {{ values|odd }} {# `odd` is a name of the filter #}
+    </div>
+    <br>
+    Custom tag: {% student_info student=student %}
+    <br>
+    {# my custum tag #}{# simple tag with many params #}
+    <br>
+    <div>
+        {% simple_tag %} {# this is a register tag name = simple_tag #}
+    </div>
+    <div>
+        My simple tag with many params: {% simple_tag 'Gosho' 'Tosho' 'Ivan' %}
+    </div>
+    <div>
+        My simple tag with many params: {% simple_tag 12 22 100 'test' %}
+    </div>
+
+    {# singel line comment#}
+
+    <!-- multy line comment -->
+    {% comment %}
+    {% endcomment %}
+
+    <!-- HTML comment -->
+
+    <!-- The Django template language -->
+    <!-- https://docs.djangoproject.com/en/4.1/ref/templates/language/ -->
+
+    <h1>Original: {{ title }}</h1>
+    <h1>Upper: {{ title|upper }}</h1>
+    <ul>
+        <li>Make List: {{ value|make_list }}</li>
+        {#    info['address'] in python  #}
+        <li>{{ info.address }}</li>
+        <li>{{ student.get_info }}</li>
+        {# Wrong #}
+        <li>{{ student_info }}</li>
+        {# Right #}
+        <li>Add Filter {{ 2|add:3|add:5 }}</li>
+        <li>Truncate chars: {{ title|truncatechars:6 }}</li>
+        <li>Data Time: {{ now }}</li>
+        <li>Format Data: {{ now|date:'d:M:y' }}</li>
+        <li>My Data filter: {{ now|app_style }}</li>
+        <br>
+        <div>
+        <!-- Use `if` -->
+            {% if students %}
+                All students:  {{ students|join:', ' }}.
+            {% endif %}
+        </div>
+
+        <br>
+        <h3>Pure for</h3>
+        <!-- Use Bootstrap `class="list-group"` Start here -->
+        <ul class="list-group">
+        <!-- Use `for` -->
+            {% for student in students %}
+                <li class="list-group-item">{{ student }}</li>
+
+        <!-- if list is empty DTL will show "No students" -->
+            {% empty %}
+                <li class="list-group-item">No students</li>
+            {% endfor %}
+        <!-- Use Bootstrap `class="list-group"` End here -->
+
+        </ul>
+        <!-- Use `ifchanged` -->
+        <h3>`for` with `ifchanged`</h3>
+
+        <ul>
+            {% for student in students %}
+                {% ifchanged student %}
+                    <li>{{ student }}</li>
+                {% endifchanged %}
+            {% endfor %}
+        </ul>
+    </ul>
+
+ <!-- End block page content -->
+{% endblock %}

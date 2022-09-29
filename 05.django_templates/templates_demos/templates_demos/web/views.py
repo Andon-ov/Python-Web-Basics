@@ -1,7 +1,7 @@
 import random
 from datetime import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 class Student:
@@ -24,7 +24,17 @@ def show_index(request):
             'address': 'Sofia'
         },
         'student': Student('Doncho', 19),  # Wrong
-        'student_info': Student('Doncho', 19).get_info(),# Right
-        'now': datetime.now()
+        'student_info': Student('Doncho', 19).get_info(),  # Right
+        'now': datetime.now(),
+        'students': ['Mariq', 'Pesho', 'Pesho', 'Pesho', 'Pesho', 'Gosho', 'Stamat'],
+        'values': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     }
     return render(request, 'index.html', context)
+
+
+def redirect_to_home(request):
+    return redirect('index')
+
+
+def about(request):
+    return render(request, 'about.html')
