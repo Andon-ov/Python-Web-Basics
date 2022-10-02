@@ -23,8 +23,12 @@ SECRET_KEY = 'django-insecure-9+^@6m4dv1$nk^rdjoc8*y+$#%96ldsc_xku(0=6d_z@yd4nc@
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -126,6 +130,8 @@ STATICFILES_DIRS = (
 #     BASE_DIR / 'static',
 # )
 
+STATIC_ROOT = '/tmp/petstagram/static-files'
+# python manage.py collectstatic --> command
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
