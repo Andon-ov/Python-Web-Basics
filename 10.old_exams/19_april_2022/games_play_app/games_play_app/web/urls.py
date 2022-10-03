@@ -1,13 +1,12 @@
 from django.urls import path
 
-
 from games_play_app.web.views import show_index, details_profile_page, edit_profile_page, \
     delete_profile_page, dashboard_page, details_game_page, create_game_page, edit_game_page, delete_game_page, \
     create_profile_page
 
 urlpatterns = (
     path('', show_index, name='show index'),
-     path('profile/create/', create_profile_page, name='create profile page'), #func base view
+    path('profile/create/', create_profile_page, name='create profile page'),  # func base view
 
     # path('profile/create/', CreateProfilePageView.as_view(), name='create profile page'), # clas base view
 

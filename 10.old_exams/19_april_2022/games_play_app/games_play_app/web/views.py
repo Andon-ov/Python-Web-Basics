@@ -112,8 +112,8 @@ class DetailsProfilePageView(DetailView):
 # delete_game_page
 
 
-def base_page(request):
+def nav(request):
     context = {
         'profile': get_profile()
     }
-    return render(request, 'base/base.html', context)
+    return render(request, 'tags/nav.html', context)

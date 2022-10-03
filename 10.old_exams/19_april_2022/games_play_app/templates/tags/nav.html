@@ -1,0 +1,15 @@
+{% load tags %}
+
+<nav>
+    {% have_a_profile as profile%}
+    {% if not profile %}
+        <a href="{% url 'create profile page' %}">Create Profile</a>
+    {% else %}
+
+        <a href="{% url 'dashboard page' %}">Dashboard</a>
+        <a href="{% url 'create game page' %}">Create Game</a>
+        <a href="{% url 'details profile page' %}">Profile</a>
+
+    {% endif %}
+
+</nav>

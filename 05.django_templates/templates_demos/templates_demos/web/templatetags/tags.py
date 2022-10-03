@@ -16,9 +16,7 @@ def show_student_info(student: Student):
 # simple tag with many params
 @register.simple_tag(name='simple_tag')
 def simple_tag(*args, **kwargs):
-    return ', '.join(str(x)
-                     for
-                     x in list(args) + list(kwargs.items()))
+    return ', '.join(str(x)for x in list(args) + list(kwargs.items()))
 
 
 # inclusion tag
