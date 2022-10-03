@@ -4,6 +4,7 @@ from django.db import models
 
 class ProfileModel(models.Model):
     email = models.EmailField()
+
     age = models.IntegerField(
         validators=(
             MinValueValidator(12),
