@@ -1,11 +1,12 @@
 from django.urls import path, include
 
-from music_app.my_music_app.views import show_index, add_album, details_album, edit_album, delete_album, \
-    profile_details, profile_delete, profile_create
+from music_app.my_music_app.views import add_album, details_album, edit_album, delete_album, \
+    profile_details, profile_delete, profile_create, show_index
 
 urlpatterns = (
 
     path('', show_index, name='index'),
+
 
     path('album/', include([
 

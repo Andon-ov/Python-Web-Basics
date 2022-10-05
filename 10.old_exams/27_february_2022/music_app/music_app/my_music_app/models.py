@@ -28,8 +28,6 @@ class Profile(models.Model):
         blank=True,
     )
 
-    # ▪ The age cannot be below 0.
-
 
 class Album(models.Model):
     POP = 'Pop Music'
@@ -72,4 +70,6 @@ class Album(models.Model):
         )
     )
 
+    def __str__(self):
+        return f'id{self.id} name{self.album_name}'
     # ▪ The number of decimal places of the price should not be specified in the database.
