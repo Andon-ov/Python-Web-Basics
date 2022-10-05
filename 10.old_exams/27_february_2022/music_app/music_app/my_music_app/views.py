@@ -1,12 +1,23 @@
 from django.shortcuts import render, redirect
 
-from music_app.my_music_app.forms import CreatAlbumForm, EditAlbumForm, DeleteAlbumForm, CreatProfileForm, \
-    DeleteProfileForm
+from music_app.my_music_app.forms import CreatAlbumForm, EditAlbumForm, DeleteAlbumForm, CreatProfileForm
 from music_app.my_music_app.models import Album, Profile
+
+
+def has_profile():
+    try:
+        profile = Profile.objects.all()[0]
+        return profile
+    except IndexError:
+        return None
+
 
 
 def show_index(request):
     albums = Album.objects.all()
+    profile = has_profile()
+    if not profile:
+        return redirect('profile create')
     context = {
         'albums': albums
     }
@@ -66,33 +77,23 @@ def delete_album(request, pk):
     return render(request, 'delete-album.html', context)
 
 
-def has_profile():
-    profile = Profile.objects.all()
-    if profile:
-        return profile[0]
-    return None
-
-
 def profile_details(request):
-    profile = Profile.objects.all()[0]
-    all_albums = Album.objects.count()
     context = {
-        'profile': profile,
-        'albums': all_albums,
+        'profile': has_profile(),
+        'albums': Album.objects.count(),
     }
     return render(request, 'profile-details.html', context)
 
 
 def profile_create(request):
-    profile = Profile.objects.all()[0]
     if request.method == 'POST':
-        form = CreatProfileForm(request.POST, instance=profile)
+        form = CreatProfileForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('index')
 
     else:
-        form = CreatProfileForm(instance=profile)
+        form = CreatProfileForm()
     context = {
         'form': form
     }
@@ -100,16 +101,9 @@ def profile_create(request):
 
 
 def profile_delete(request):
-    profile = has_profile()
     if request.method == 'POST':
-        form = DeleteProfileForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-
-    else:
-        form = CreatProfileForm(instance=profile)
-    context = {
-        'form': form,
-    }
-    return render(request, 'profile-delete.html', context)
+        profile = has_profile()
+        profile.delete()
+        Album.objects.all().delete()
+        return redirect('index')
+    return render(request, 'profile-delete.html')

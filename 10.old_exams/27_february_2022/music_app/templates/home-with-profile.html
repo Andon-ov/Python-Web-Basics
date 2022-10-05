@@ -5,7 +5,7 @@
     <section id="catalogPage">
 
         <!--  If No albums in catalog -->
-        {% if  not albums %}
+        {% if not albums %}
             <p>No Albums in Catalog!</p>
         {% else %}
 
@@ -21,7 +21,7 @@
                         <p class="name">Name: {{ album.album_name }}</p>
                         <p class="artist">Artist: {{ album.artist }}</p>
                         <p class="genre">Genre: {{ album.genre }}</p>
-                        <p class="price">Price: ${{ album.price }}</p>
+                        <p class="price">Price: ${{ album.price| floatformat:2 }}</p>
                     </div>
                     <div class="btn-group">
                         <a href="{% url 'details album' album.pk %}">Details</a>
