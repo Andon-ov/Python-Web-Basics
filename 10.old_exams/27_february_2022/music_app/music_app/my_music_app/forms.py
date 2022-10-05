@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import HiddenInput
 
 from music_app.my_music_app.models import Album, Profile
 
@@ -46,4 +47,5 @@ class DeleteProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        exclude = ('username', 'email', 'age')
+        widgets = {'any_field': HiddenInput(), }

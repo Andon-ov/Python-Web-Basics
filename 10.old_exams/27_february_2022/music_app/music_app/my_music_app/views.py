@@ -66,10 +66,19 @@ def delete_album(request, pk):
     return render(request, 'delete-album.html', context)
 
 
+def has_profile():
+    profile = Profile.objects.all()
+    if profile:
+        return profile[0]
+    return None
+
+
 def profile_details(request):
     profile = Profile.objects.all()[0]
+    all_albums = Album.objects.count()
     context = {
-        'profile': profile
+        'profile': profile,
+        'albums': all_albums,
     }
     return render(request, 'profile-details.html', context)
 
@@ -91,7 +100,7 @@ def profile_create(request):
 
 
 def profile_delete(request):
-    profile = Profile.objects.all()[0]
+    profile = has_profile()
     if request.method == 'POST':
         form = DeleteProfileForm(request.POST, instance=profile)
         if form.is_valid():
@@ -101,6 +110,6 @@ def profile_delete(request):
     else:
         form = CreatProfileForm(instance=profile)
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'profile-delete.html', context)
