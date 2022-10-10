@@ -37,7 +37,7 @@ class Recipe(models.Model):
     image_url = models.URLField()
     instructions = models.TextField()
 
-    ingredient = models.ManyToManyField(to=Ingredient, related_name='+')
+    ingredient = models.ManyToManyField(to=Ingredient)
 
     # time = models.IntegerField()
 
