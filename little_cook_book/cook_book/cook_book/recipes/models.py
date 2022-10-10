@@ -38,8 +38,7 @@ class Recipe(models.Model):
     instructions = models.TextField()
 
     ingredient = models.ManyToManyField(to=Ingredient, related_name='ingredient')
-
-    # time = models.IntegerField()
+    prepare = models.IntegerField()
 
     def get_ingredients(self):
         return ", ".join([str(i) for i in self.ingredient.all()])

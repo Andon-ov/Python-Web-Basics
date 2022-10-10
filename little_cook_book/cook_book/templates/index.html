@@ -1,23 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
-<body>
-<div>
-    {% for recipe in recipes %}
-        <ul class="my-recipe-list">
-            <li class="recipe">
-                <h3>{{ recipe.title }}</h3>
-                <p>Type: {{ recipe.food_type }}</p>
-                <p class="img"><img src="{{ recipe.image_url }}" alt=""></p>
-                <a class="button" href="{% url 'detail' recipe.pk %}">Details</a>
-            </li>
-        </ul>
-    {% endfor %}
-</div>
+{% extends 'base/base.html' %}
+{% block page_content %}
 
+    <div class="container">
+        <!-- My Recipes -->
+        <h1>My Recipes</h1>
+        <!-- If not have recipes -->
 
-</body>
-</html>
+        {% for recipe in recipes %}
+            <div class="items-container">
+            <div class="item">
+
+                <!-- title -->
+                <h2>{{ recipe.title }}</h2>
+                <!-- img -->
+                <img class="detail-img" src="{{ recipe.image_url }}" alt="recipe image">
+                <!-- description -->
+                <div class="{{ recipe.food_type }}">
+                    <p>{{ recipe.food_type }}</p>
+                </div>
+                <!-- buttons -->
+                <div class="buttons-container">
+                    <a class="btn btn-success" href="{% url 'detail' recipe.pk %}">Details</a>
+                    {#                        <a class="button edit" href="{% url 'edit recipe' recipe.pk %}">Edit</a>#}
+                    {#                        <a class="button delete" href="{% url 'delete recipe' recipe.pk %}">Delete</a>#}
+                </div>
+            </div>
+        {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

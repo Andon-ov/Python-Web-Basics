@@ -1,31 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base/base.html' %}
+{% load static %}
+{% block page_content %}
+    <div class="container">
+        <h1>Recipe Details</h1>
+        <div class="items-container">
+            <div class="item">
+                <h2>{{ recipe.title }}</h2>
+                <img class="detail-img" src="{{ recipe.image_url }}" alt="recipe image">
+                <div class="time">
+                    <img src="{% static 'images/clock.png' %}" alt="clock.png">
+                    <p>{{ recipe.prepare }}</p>
 
-<h1>{{ recipe.title }}</h1>
-<h3>{{ recipe.food_type }}</h3>
-<p class="img"><img src="{{ recipe.image_url }}" alt=""></p>
+                </div>
 
-<br>
-instructions: <p>{{ recipe.instructions }}</p>
-<br>
+                <h3>Ingredients</h3>
+                <div>
+                    <p>Food Type: {{ recipe.food_type }}</p>
+                    {% for ingredient in recipe.ingredient.all %}
+                        <ul>
+                            <li>
+                                {{ ingredient }}
+                            </li>
+                        </ul>
 
+                    {% endfor %}
+                </div>
+                <h3>How to prepare?</h3>
+                <div class="recipe-info-full">
+                    <p>{{ recipe.instructions }}</p>
+                </div>
+                <div class="buttons-container">
+                    <a class="btn btn-success" href="{% url 'index' %}">Home</a>
+                    {#                    <a class="button edit" href="{% url 'edit recipe' recipe.pk %}">Edit</a>#}
+                    {#                    <a class="button delete" href="{% url 'delete recipe' recipe.pk %}">Delete</a>#}
+                </div>
+            </div>
+        </div>
 
-<div>
-
-    {% for ingredient in recipe.ingredient.all %}
-
-        <li>{{ ingredient }}</li>
-        <br>
-    {% endfor %}
-
-</div>
-</body>
-</html>
+    </div>
+{% endblock %}
