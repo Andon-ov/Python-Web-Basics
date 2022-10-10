@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+{% for recipe in recipes %}
+    <br>
+    {{ recipe.title }}
+    <br>
+    {{ recipe.food_type }}
+    <br>
+    {{ recipe.ingredient.name }}
+    <br>
+
+{% endfor %}
+
+</body>
+</html>

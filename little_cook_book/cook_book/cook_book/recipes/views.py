@@ -1,6 +1,17 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import DetailView
 
-# Create your views here.
+from cook_book.recipes.models import Recipe
+
+
 def index(request):
-    return HttpResponse('Testche')
+    context = {
+        'recipes': Recipe.objects.all(),
+
+    }
+    return render(request, 'index.html', context)
+
+
+class DetailsView(DetailView):
+    template_name = 'details.html'
+    queryset = Recipe.objects.get()
