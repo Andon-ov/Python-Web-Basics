@@ -17,7 +17,8 @@
     <ul>
         <img src="{% static 'images/chef.png' %}" alt="chef">
         <li class="title"><a href="{% url 'index' %}">Recipes</a></li>
-        <li><a href="{% url 'create' %}">Add Recipe</a></li>
+        <li><a href="{% url 'create ingredient' %}">Add Ingredient</a></li>
+        <li><a href="{% url 'create recipe' %}">Add Recipe</a></li>
     </ul>
 </nav>
 {% block page_content %}

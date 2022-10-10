@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.views.generic import FormView
 
-from cook_book.recipes.form import RecipeCreateForm
-from cook_book.recipes.models import Recipe
+from cook_book.recipes.form import RecipeCreateForm, IngredientCreateForm
+from cook_book.recipes.models import Recipe, Ingredient
 
 
 def index(request):
@@ -21,19 +22,39 @@ def details_view(request, pk):
     return render(request, 'details.html', context)
 
 
-def create_view(request):
+def create_recipe_view(request):
     if request.method == 'POST':
         form = RecipeCreateForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('index')
     else:
-        form = RecipeCreateForm(request.POST)
+        form = RecipeCreateForm()
         context = {
             'form': form
         }
-        return render(request, 'create.html', context)
+        return render(request, 'create-recipe.html', context)
 
-# class DetailsView(DetailView):
-#     template_name = 'details.html'
-#     queryset = Recipe.objects.get()
+
+# def create_ingredient_view(request):
+#     if request.method == 'POST':
+#         form = IngredientCreateForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('index')
+#     else:
+#         form = IngredientCreateForm()
+#         context = {
+#             'form': form
+#         }
+#         return render(request, 'create-ingredient.html', context)
+
+
+class CreateIngredientView(FormView):
+    template_name = 'create-ingredient.html'
+    form_class = IngredientCreateForm
+    success_url = '/create/ingredient/'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

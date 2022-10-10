@@ -5,7 +5,8 @@
     <h1>Create Recipe</h1>
     <div class="items-container">
         <div class="item">
-            <form method="POST" action="{% url 'create' %}">
+            <form method="POST" action="{% url 'create recipe' %}">
+{#            <form method="POST" action="{% url 'create ingredient' %}">#}
                 {{ form }}
                 {% csrf_token %}
                 <input type="submit" value="Create">
