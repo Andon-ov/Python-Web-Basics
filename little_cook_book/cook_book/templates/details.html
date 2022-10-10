@@ -9,10 +9,23 @@
 </head>
 <body>
 
-        {{ object.title }}
+<h1>{{ recipe.title }}</h1>
+<h3>{{ recipe.food_type }}</h3>
+<p class="img"><img src="{{ recipe.image_url }}" alt=""></p>
+
+<br>
+instructions: <p>{{ recipe.instructions }}</p>
+<br>
+
+
+<div>
+
+    {% for ingredient in recipe.ingredient.all %}
+
+        <li>{{ ingredient }}</li>
         <br>
-        {{ object.ingredient }}
+    {% endfor %}
 
-
+</div>
 </body>
 </html>

@@ -16,7 +16,6 @@ def details_view(request, pk):
     recipe = Recipe.objects.get(pk=pk)
 
     context = {
-        'ingredient': Recipe.objects.get(ingredient__unit_id=pk),
         'recipe': recipe,
     }
     return render(request, 'details.html', context)

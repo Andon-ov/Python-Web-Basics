@@ -5,16 +5,19 @@
     <title>Index</title>
 </head>
 <body>
-{% for recipe in recipes %}
-    <br>
-    {{ recipe.title }}
-    <br>
-    {{ recipe.food_type }}
-    <br>
-    {{ recipe.ingredient.name }}
-    <br>
+<div>
+    {% for recipe in recipes %}
+        <ul class="my-recipe-list">
+            <li class="recipe">
+                <h3>{{ recipe.title }}</h3>
+                <p>Type: {{ recipe.food_type }}</p>
+                <p class="img"><img src="{{ recipe.image_url }}" alt=""></p>
+                <a class="button" href="{% url 'detail' recipe.pk %}">Details</a>
+            </li>
+        </ul>
+    {% endfor %}
+</div>
 
-{% endfor %}
 
 </body>
 </html>
