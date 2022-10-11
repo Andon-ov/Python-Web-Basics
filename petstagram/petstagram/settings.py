@@ -125,12 +125,17 @@ STATICFILES_DIRS = (
         BASE_DIR, 'static'
     ),
 )
-
-# STATICFILES_DIRS = (
-#     BASE_DIR / 'static',
-# )
-
 STATIC_ROOT = '/tmp/petstagram/static-files'
+
+
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = '/home/baido/Documents/GitHub/Python-Web-Basics/petstagram/'
+
+
+
+
+
 # python manage.py collectstatic --> command
 
 # Default primary key field type
