@@ -1,10 +1,14 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 
+from petstagram.core.models_mixin import StrFormFieldMixin
 from petstagram.pets.models import Pet
+from petstagram.photos.vaditarors import validate_file_less_then_5mb
 
 
-class Photo(models.Model):
+class Photo(StrFormFieldMixin,models.Model):
+    str_fields = ('date_of_publication','photo')
+
     MAX_PHOTOS_SIZE = 5  # MB
     MIN_DESCRIPTION_LEN = 10
     MAX_DESCRIPTION_LEN = 300
@@ -14,6 +18,9 @@ class Photo(models.Model):
         upload_to='media/pet_photos/',
         null=False,
         blank=True,
+        validators=(
+            validate_file_less_then_5mb,
+        )
     )
     description = models.CharField(
         blank=True,

@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect
 from django.views.generic import FormView
 
 from cook_book.recipes.form import RecipeCreateForm, IngredientCreateForm
-from cook_book.recipes.models import Recipe, Ingredient
+from cook_book.recipes.models import Recipe
 
 
 def index(request):
+    recipes = Recipe.objects.all()
+    data = recipes.values()
     context = {
-        'recipes': Recipe.objects.all(),
-
+        'tags': [
+            {'name': 'Recipe', 'recipes': data},
+            # {'name': 'Recipe', 'recipes': data},
+            # {'name': 'Recipe', 'recipes': data},
+        ]
     }
     return render(request, 'index.html', context)
 

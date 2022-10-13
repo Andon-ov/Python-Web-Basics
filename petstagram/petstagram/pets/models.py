@@ -1,8 +1,12 @@
 from django.db import models
 from django.utils.text import slugify
 
+from petstagram.core.models_mixin import StrFormFieldMixin
 
-class Pet(models.Model):
+
+class Pet(StrFormFieldMixin, models.Model):
+    str_fields = ('name', 'slug')
+
     PET_NAME_MAX_LEN = 30
     name = models.CharField(
         max_length=PET_NAME_MAX_LEN,
@@ -24,8 +28,8 @@ class Pet(models.Model):
         null=True
     )
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
     def save(self, *args, **kwargs):
         # Create/Update
@@ -37,5 +41,3 @@ class Pet(models.Model):
             )
         # Update
         return super().save(*args, **kwargs)
-
-

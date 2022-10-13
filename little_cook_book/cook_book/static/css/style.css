@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 body {
-    background: #eeeeee;
+    background: #e6cba4;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
 }
 
 nav {
-    background: #12869b;
+    background: #6fd5a2;
 }
 
 nav ul {
@@ -25,7 +26,7 @@ nav ul img,
 nav ul li a {
     list-style: none;
     text-decoration: none;
-    color: #f1f1e8;
+    color: #000000;
     padding: 5px;
 }
 
@@ -53,7 +54,7 @@ div.items-container {
 
 div.item {
     width: 50%;
-    background: #12869b;
+    background: #6fd5a2;
     margin: 10px;
     padding: 10px;
     border-radius: 5px;
@@ -118,28 +119,28 @@ input[type="submit"] {
 
 div.buttons-container .button.edit,
 input[type="submit"] {
-    background: #d38226;
+    background: #6fd5a2;
 }
 
 div.buttons-container .button.edit:hover,
 input[type="submit"]:hover {
-    background: #e78f2a;
+    background: #6fd5a2;
 }
 
 div.buttons-container .button.detail {
-    background: #496d95;
+    background: #6fd5a2;
 }
 
 div.buttons-container .button.detail:hover {
-    background: #5780af;
+    background: #6fd5a2;
 }
 
 div.buttons-container .button.delete {
-    background: #c52f2f;
+    background: #6fd5a2;
 }
 
 div.buttons-container .button.delete:hover {
-    background: #d63333;
+    background: #6fd5a2;
 }
 
 form {

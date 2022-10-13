@@ -1,32 +1,28 @@
 {% extends 'base/base.html' %}
 {% block page_content %}
-
-    <div class="container">
-        <!-- My Recipes -->
+    <!-- My Recipes -->
+    <div class="container-fluid text-center">
         <h1>My Recipes</h1>
-        <!-- If not have recipes -->
-
-        {% for recipe in recipes %}
-            <div class="items-container">
-            <div class="item">
-
-                <!-- title -->
-                <h2>{{ recipe.title }}</h2>
-                <!-- img -->
-                <img class="detail-img" src="{{ recipe.image_url }}" alt="recipe image">
-                <!-- description -->
-                <div class="{{ recipe.food_type }}">
-                    <p>{{ recipe.food_type }}</p>
-                </div>
-                <!-- buttons -->
-                <div class="buttons-container">
-                    <a class="btn btn-success" href="{% url 'detail' recipe.pk %}">Details</a>
-                    {#                        <a class="button edit" href="{% url 'edit recipe' recipe.pk %}">Edit</a>#}
-                    {#                        <a class="button delete" href="{% url 'delete recipe' recipe.pk %}">Delete</a>#}
-                </div>
-            </div>
-        {% endfor %}
-
-        </div>
     </div>
+
+    {% for tag in tags %}
+        <div class="container " style="border:1px solid #198754;">
+            <div class="row row-cols-5 row-cols-md-4 g-3">
+                {% for recipe in tag.recipes %}
+                    <div class="col">
+                        <!-- For Tags-->
+                        <div class="card border-success text-bg-success mb-3" style="max-width: 19.5rem;">
+                            <!-- For Recipes-->
+                            <img src="{{ recipe.image_url }}" class="img-thumbnail card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ recipe.title }}</h5>
+                                <p class="card-text">{{ recipe.food_type }}</p>
+                                <a href="{% url 'detail' recipe.id %}" class="btn btn-primary">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
