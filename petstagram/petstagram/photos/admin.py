@@ -3,14 +3,13 @@ from django.contrib import admin
 from petstagram.photos.models import Photo
 
 
-# Register your models here.
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('date_of_publication', 'description', 'pets')
+    list_display = ('pk', 'publication_date', 'pets')
 
     @staticmethod
     def pets(current_photo_obj):
-        tagged_pets = [p.name for p in current_photo_obj.tagged_pet.all()]
+        tagged_pets = current_photo_obj.tagged_pets.all()
         if tagged_pets:
-            return ', '.join(tagged_pets)
-        return 'No Pets'
+            return ', '.join(p.name for p in tagged_pets)
+        return 'No pets'

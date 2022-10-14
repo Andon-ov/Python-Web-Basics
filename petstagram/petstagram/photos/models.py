@@ -1,47 +1,58 @@
+# photos/models.py
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from petstagram.core.models_mixin import StrFormFieldMixin
+from petstagram.core.model_mixins import StrFromFieldsMixin
 from petstagram.pets.models import Pet
-from petstagram.photos.vaditarors import validate_file_less_then_5mb
+from petstagram.photos.validators import validate_file_less_than_5mb
 
 
-class Photo(StrFormFieldMixin,models.Model):
-    str_fields = ('date_of_publication','photo')
+class Photo(StrFromFieldsMixin, models.Model):
+    str_fields = ('pk', 'photo', 'location')
+    MIN_DESCRIPTION_LENGTH = 10
+    MAX_DESCRIPTION_LENGTH = 300
 
-    MAX_PHOTOS_SIZE = 5  # MB
-    MIN_DESCRIPTION_LEN = 10
-    MAX_DESCRIPTION_LEN = 300
-    MAX_LOCATION_LEN = 30
+    MAX_LOCATION_LENGTH = 30
 
+    # Requires mediafiles to work correctly
     photo = models.ImageField(
-        upload_to='media/pet_photos/',
+        upload_to='mediafiles/pet_photos/',
         null=False,
         blank=True,
-        validators=(
-            validate_file_less_then_5mb,
-        )
+        validators=(validate_file_less_than_5mb,),
     )
+
     description = models.CharField(
-        blank=True,
-        null=True,
-        max_length=MAX_DESCRIPTION_LEN,
+        # DB validation
+        max_length=MAX_DESCRIPTION_LENGTH,
         validators=(
-            MinLengthValidator,
-        )
-
-    )
-    location = models.CharField(
-        max_length=MAX_LOCATION_LEN,
-        blank=True,
+            # Django/python validation, not DB validation
+            MinLengthValidator(MIN_DESCRIPTION_LENGTH),
+        ),
         null=True,
+        blank=True,
     )
 
-    date_of_publication = models.DateField(
-        auto_now=True
+    location = models.CharField(
+        max_length=MAX_LOCATION_LENGTH,
+        null=True,
+        blank=True,
     )
 
-    tagged_pet = models.ManyToManyField(
+    publication_date = models.DateField(
+        # Automatically sets current date on `save` (update or create)
+        auto_now=True,
+        null=False,
+        blank=True,
+    )
+
+    # One-to-one relations
+
+    # One-to-many relations
+
+    # Many-to-many relations
+
+    tagged_pets = models.ManyToManyField(
         Pet,
-        blank=True
+        blank=True,
     )

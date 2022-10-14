@@ -9,7 +9,7 @@
             <form method="POST"  action="{% url 'create ingredient' %}">
                 {{ form }}
                 {% csrf_token %}
-                <input type="submit" value="Create">
+                <input type="submit" class="btn btn-light" value="Create">
             </form>
         </div>
     </div>

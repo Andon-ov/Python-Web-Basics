@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block page_contante %}
+
+{% block page_content %}
     <div class="container">
         <div class="col-9">
 
@@ -46,7 +47,8 @@
 
                                 <!-- Link to Delete Pet Photo Page -->
                                 <a href="#">
-                                    <img class="bin-img" src="{% static '/images/icon-remove-22.jpg' %}" alt="bin button">
+                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
+                                         alt="bin button">
                                 </a>
                             </div>
                             <!-- End IF the viewer is the creator of the photo -->
@@ -60,7 +62,7 @@
                 <!-- Start Pet Photo -->
                 <div class="imgBx" id="place the id of the photo here">
                     <!-- Pet Photo -->
-                    <img src="{% static '/images/axolotl.jpeg' %}" alt="post" class="cover">
+                    <img src="{% static 'images/axolotl.jpeg' %}" alt="post" class="cover">
                 </div>
                 <!-- End Pet Photo -->
 
@@ -213,4 +215,5 @@
 
         </div>
     </div>
+
 {% endblock %}

@@ -124,24 +124,10 @@ input[type="submit"] {
 
 div.buttons-container .button.edit:hover,
 input[type="submit"]:hover {
-    background: #198754;
+    background: #ffffff;
 }
 
-div.buttons-container .button.detail {
-    background: #198754;
-}
 
-div.buttons-container .button.detail:hover {
-    background: #198754;
-}
-
-div.buttons-container .button.delete {
-    background: #198754;
-}
-
-div.buttons-container .button.delete:hover {
-    background: #198754;
-}
 
 form {
     display: flex;
