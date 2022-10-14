@@ -8,7 +8,7 @@ body {
 }
 
 nav {
-    background: #6fd5a2;
+    background: #198754;
 }
 
 nav ul {
@@ -54,7 +54,7 @@ div.items-container {
 
 div.item {
     width: 50%;
-    background: #6fd5a2;
+    background: #198754;
     margin: 10px;
     padding: 10px;
     border-radius: 5px;
@@ -119,28 +119,28 @@ input[type="submit"] {
 
 div.buttons-container .button.edit,
 input[type="submit"] {
-    background: #6fd5a2;
+    background: #000000;
 }
 
 div.buttons-container .button.edit:hover,
 input[type="submit"]:hover {
-    background: #6fd5a2;
+    background: #198754;
 }
 
 div.buttons-container .button.detail {
-    background: #6fd5a2;
+    background: #198754;
 }
 
 div.buttons-container .button.detail:hover {
-    background: #6fd5a2;
+    background: #198754;
 }
 
 div.buttons-container .button.delete {
-    background: #6fd5a2;
+    background: #198754;
 }
 
 div.buttons-container .button.delete:hover {
-    background: #6fd5a2;
+    background: #198754;
 }
 
 form {
@@ -168,4 +168,16 @@ textarea {
 form input[type="submit"] {
     margin-top: 15px;
     width: 25%;
+}
+
+
+/*form select*/
+select {
+    font-size: 18px;
+    padding: 7px;
+    border: 2px solid #f1f1e8;
+    border-radius: 2px;
+    width: 50%;
+    display: block;
+    margin: 0 auto;
 }
