@@ -3,15 +3,26 @@
     <!-- My Recipes -->
 
     {% for tag in tags %}
-        <div class="container" style="border :1px solid #198754;">
-            <h1>My Recipes</h1>
+        <div class="container">
+            <div class="row row-col-2 gy-5">
+                <div class="col ">
+                    <div class="box">
+                                    <h1>My Recipes</h1>
+{#                        <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg" class="img-fluid"#}
+{#                             alt="...">#}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="container" style="border:1px solid #198754;">
+
+
+{# style="border :1px solid #000000;"#}
+        <div class="container">
             <div class="row row-cols-5 row-cols-md-4 g-3">
                 {% for recipe in tag.recipes %}
                     <div class="col">
                         <!-- For Tags-->
-                        <div class="card border-success text-bg-success mb-3" style="max-width: 19.5rem;">
+                        <div class="card border-dark text-bg-dark mb-3" style="max-width: 19.5rem;">
                             <!-- For Recipes-->
                             <img src="{{ recipe.image_url }}" class="img-thumbnail card-img-top" alt="...">
                             <div class="card-body">
