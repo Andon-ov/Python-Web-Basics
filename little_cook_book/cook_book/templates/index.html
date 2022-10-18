@@ -2,28 +2,27 @@
 {% block page_content %}
     <!-- My Recipes -->
 
-    {% for tag in tags %}
-        <div class="container">
-            <div class="row row-col-2 gy-5">
-                <div class="col ">
-                    <div class="box">
-                                    <h1>My Recipes</h1>
-{#                        <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg" class="img-fluid"#}
-{#                             alt="...">#}
-                    </div>
-                </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">My Recipes</h1>
+                <img src="https://cdn.pixabay.com/photo/2016/05/26/14/11/chef-1417239_960_720.png" alt="" sizes=""
+                     srcset="" style="max-width: 20%;">
+                <h2 class="card-subtitle">Wellcome to my food </h2>
             </div>
         </div>
+    </div>
 
-
-{# style="border :1px solid #000000;"#}
-        <div class="container">
+    <!-- For Tags-->
+    {% for tag in tags %}
+        <div class="container"> <!-- style="border :1px solid #000000;" -->
             <div class="row row-cols-5 row-cols-md-4 g-3">
+                <!-- For Recipes-->
                 {% for recipe in tag.recipes %}
                     <div class="col">
-                        <!-- For Tags-->
+
+                        <!-- card start -->
                         <div class="card border-dark text-bg-dark mb-3" style="max-width: 19.5rem;">
-                            <!-- For Recipes-->
                             <img src="{{ recipe.image_url }}" class="img-thumbnail card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ recipe.title }}</h5>
@@ -31,6 +30,8 @@
                                 <a href="{% url 'detail' recipe.id %}" class="btn btn-dark">Details</a>
                             </div>
                         </div>
+                        <!-- card end -->
+                        
                     </div>
                 {% endfor %}
             </div>
