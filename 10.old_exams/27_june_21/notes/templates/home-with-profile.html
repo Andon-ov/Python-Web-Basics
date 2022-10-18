@@ -1,0 +1,26 @@
+{% include 'base/base.html' %}
+{% block content %}
+
+    {% if not notes %}
+        <h2>There are no notes.</h2>
+    {% else %}
+        <h1>My Notes</h1>
+        {% for note in notes %}
+            <!--notes container-->
+            <div class="note-container">
+                <h2>{{ note.title }} <img src="{{ note.image_url }}"
+                                          alt="note image"/></h2>
+
+                <div class="right">
+                    <a class="button details" href="{% url 'note details' note.pk %}">Details</a>
+                    <a class="button edit" href="{% url 'edit note' note.pk %}">Edit</a>
+                    <a class="button delete" href="{% url 'delete note' note.pk %}">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+{# https://www.freeiconspng.com/thumbs/tasks-icon/tasks-icon-9.png #}
+{# https://about.softuni.bg/Content/images/home-page/softuni-logo.svg #}

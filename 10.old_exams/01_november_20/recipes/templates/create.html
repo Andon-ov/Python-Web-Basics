@@ -1,0 +1,14 @@
+{% include 'base/base.html' %}
+{% block contant %}
+    <h1>Create Recipe</h1>
+    <div class="items-container">
+        <div class="item">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Create">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
