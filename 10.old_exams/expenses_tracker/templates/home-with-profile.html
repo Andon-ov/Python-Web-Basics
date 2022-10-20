@@ -1,50 +1,43 @@
-<!-- Summary -->
 {% extends 'base/base.html' %}
-{% block page_content %}
+{% block content %}
     {% if expenses %}
         <div>
             <h1>Summary</h1>
             <ul class="expenses-list">
-                <!-- User Budget -->
+
                 <li class="blue">{{ profile.budget|floatformat:2 }}$</li>
-                {% for expens in expenses %}
-                    <li class="red"> - {{ expens.price|floatformat:2 }}$</li>
+                {% for expense in expenses %}
+                    <li class="red"> - {{ expense.price|floatformat:2 }}$</li>
                 {% endfor %}
-                <!-- Money Left -->
                 <li class="green">= {{ budget_left|floatformat:2 }}$ left</li>
             </ul>
         </div>
     {% endif %}
-    <!-- End Summary -->
 
-    <!-- Headline My Expenses -->
     <h1>My Expenses</h1>
-    <!-- Add Expense Button -->
+
     <a class="button add" href="{% url 'create expense' %}">Add Expense</a>
 
     <div class="expenses-container">
         {% for expense in expenses %}
 
-
             <div class="expense-container">
 
                 <h2>{{ expense.title }}</h2>
 
-                <img src="{{ expense.image }}"
-                     alt="{{ expenses.description }}">
-                {% if expenses.description %}
-                    <p>{{ expenses.description }}</p>
-                {% endif %}
+                <img src="{{ expense.expense_image }}"
+                     alt="description">
 
+                <p>{{ expense.description }}</p>
                 <div class="expense-detail">
                     <div>
-                        <!-- Expense Price -->
-                        <p>Price: {{ expense.price|floatformat:2 }}</p>
+
+                        <p>Price: {{ expense.price|floatformat:2 }}$</p>
                     </div>
                     <div class="right">
-                        <!-- Edit Expense Button -->
+
                         <a class="button edit" href="{% url 'edit expense' expense.pk %}">Edit</a>
-                        <!-- Delete Expense Button -->
+
                         <a class="button delete" href="{% url 'delete expense' expense.pk %}">Delete</a>
                     </div>
                 </div>

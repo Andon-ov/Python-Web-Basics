@@ -1,31 +1,31 @@
+{% load tags %}
 {% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link rel="stylesheet" type="text/css" href="/static/css/style.css">#}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <title>Expenses Tracker</title>
 </head>
 
 <body>
-<!-- Navigation Bar -->
+{% have_a_profile as have_a_profile %}
 <nav>
     <ul>
         <li class="img"><img src="{% static 'images/dollar.png' %}" alt="dollar"></li>
-        <li><a href="{% url 'show index' %}">Expenses Tracker</a></li>
-        {% if not no_profile %}
-        <li class="right"><a href="{% url 'show profile' %}">Profile</a></li>
-        {% endif %}
+        <li><a href="{% url 'home' %}">Expenses Tracker</a></li>
+        {% if have_a_profile %}
 
+            <li class="right"><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
     </ul>
 </nav>
-<!-- End Navigation Bar -->
+
+
 <div class="body">
-    {% block page_content %}
+    {% block content %}
 
     {% endblock %}
-
 </div>
 
 <footer>

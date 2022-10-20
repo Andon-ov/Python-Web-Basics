@@ -2,32 +2,40 @@ import os
 
 from django import forms
 
-from expenses_tracker.web.models import Profile, Expense
+from expenses_tracker.web_app.models import Profile, Expense
 
 
 class CreateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('budget', 'first_name', 'last_name', 'image')
+        fields = ('budget', 'first_name', 'last_name', 'profile_image')
         labels = {
             'first_name': 'First Name',
             'last_name': 'Last Name',
-            'image': 'Profile Image',
+            'profile_image': 'Profile Image',
         }
 
 
-class EditProfileForm(forms.ModelForm):
+class EditeProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('budget', 'first_name', 'last_name', 'image')
+        fields = ('budget', 'first_name', 'last_name', 'profile_image')
+        labels = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'profile_image': 'Profile Image',
+        }
 
 
 class DeleteProfileForm(forms.ModelForm):
+
     def save(self, commit=True):
-        image_path = self.instance.image.path
+        if self.instance.profile_image:
+            os.remove(self.instance.profile_image.path)
+
         self.instance.delete()
         Expense.objects.all().delete()
-        os.remove(image_path)
+
         return self.instance
 
     class Meta:
@@ -35,42 +43,36 @@ class DeleteProfileForm(forms.ModelForm):
         fields = ()
 
 
+# Expenses
+
 class CreateExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
-        fields = ('title', 'description', 'image', 'price')
+        fields = ('title', 'description', 'expense_image', 'price')
         labels = {
-            'image': 'Link to Image',
+            'expense_image': 'Link to Image',
         }
 
 
-class EditExpenseForm(forms.ModelForm):
+class EditeExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
-        fields = ('title', 'description', 'image', 'price')
+        fields = ('title', 'description', 'expense_image', 'price')
         labels = {
-            'image': 'Link to Image',
+            'expense_image': 'Link to Image',
         }
 
 
 class DeleteExpenseForm(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for (_, field) in self.fields.items():
-            field.widget.attrs['readonly'] = 'readonly'
-        #     field.widget.attrs['disabled'] = 'disabled'
-
+        for _, field in self.fields.items():
+            field.disabled = True
 
     def save(self, commit=True):
-        # image_path = self.instance.image.path
         self.instance.delete()
-        # os.remove(image_path)
         return self.instance
 
     class Meta:
         model = Expense
-        fields = ('title', 'description', 'image', 'price')
-        labels = {
-            'image': 'Link to Image',
-        }
+        fields = '__all__'
