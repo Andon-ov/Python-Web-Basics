@@ -12,12 +12,10 @@ def show_index(request):
         return redirect('create profile')
 
     expenses = Expense.objects.all()
-    budget_left = profile.budget - sum(e.price for e in expenses)
 
     context = {
         'profile': profile,
         'expenses': expenses,
-        'budget_left': budget_left,
     }
     return render(request, 'home-with-profile.html', context)
 
@@ -117,15 +115,12 @@ def delete_profile(request):
 
 def show_profile(request):
     profile = has_profile()
-    expenses = Expense.objects.all()
-
-    expenses_count = len(expenses)
-    budget_left = profile.budget - sum(e.price for e in expenses)
+    expenses_count = Expense.objects.count()
 
     context = {
         'profile': profile,
         'expenses_count': expenses_count,
-        'budget_left': budget_left,
+
     }
     return render(request, 'profile.html', context)
 

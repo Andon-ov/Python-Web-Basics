@@ -9,7 +9,7 @@
                 {% for expense in expenses %}
                     <li class="red"> - {{ expense.price|floatformat:2 }}$</li>
                 {% endfor %}
-                <li class="green">= {{ budget_left|floatformat:2 }}$ left</li>
+                <li class="green">= {{ profile.budget_left|floatformat:2 }}$ left</li>
             </ul>
         </div>
     {% endif %}

@@ -16,7 +16,7 @@
 
             <p>Total Items Bought: {{ expenses_count }}</p>
 
-            <p>Budget Left: {{ budget_left|floatformat:2 }}$</p>
+            <p>Budget Left: {{ profile.budget_left|floatformat:2 }}$</p>
             <div class="right">
 
                 <a class="button edit" href="{% url 'edit profile' %}">Edit Profile</a>
