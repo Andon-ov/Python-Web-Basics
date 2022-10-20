@@ -1,8 +1,10 @@
 import os
 
 from django import forms
+from django.core.exceptions import ValidationError
 
 from expenses_tracker.web_app.models import Profile, Expense
+from expenses_tracker.web_app.views import has_profile
 
 
 class CreateProfileForm(forms.ModelForm):
@@ -46,6 +48,13 @@ class DeleteProfileForm(forms.ModelForm):
 # Expenses
 
 class CreateExpenseForm(forms.ModelForm):
+    def clean_price(self):
+        budget_left = has_profile().budget_left
+        price = float(self.cleaned_data['price'])
+        if budget_left < price:
+            raise ValidationError('Not enough budget!')
+        return price
+
     class Meta:
         model = Expense
         fields = ('title', 'description', 'expense_image', 'price')

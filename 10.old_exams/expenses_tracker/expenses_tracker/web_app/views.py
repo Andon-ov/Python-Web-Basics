@@ -1,23 +1,9 @@
 from django.shortcuts import render, redirect
 
+from expenses_tracker.core.prifile_utils import has_profile
 from expenses_tracker.web_app.forms import CreateProfileForm, EditeProfileForm, CreateExpenseForm, \
     EditeExpenseForm, DeleteExpenseForm, DeleteProfileForm
-from expenses_tracker.web_app.models import Expense, Profile
-
-
-def has_profile():
-    profile = Profile.objects.all()
-    try:
-        return profile[0]
-    except IndexError:
-        return None
-
-
-# def has_profile():
-#     profile = Profile.objects.first()
-#     if profile:
-#         return profile
-#     return None
+from expenses_tracker.web_app.models import Expense
 
 
 def show_index(request):
