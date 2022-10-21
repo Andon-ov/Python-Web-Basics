@@ -4,11 +4,13 @@ from expenses_tracker.web_app.views import create_expense, show_index, edit_expe
     edit_profile, delete_profile, create_profile
 
 urlpatterns = (
+    # index
     path('', show_index, name='home'),
+    # expenses
     path('create/', create_expense, name='create expense'),
     path('edit/<int:pk>/', edit_expense, name='edit expense'),
     path('delete/<int:pk>/', delete_expense, name='delete expense'),
-
+    # profile
     path('profile/', include([
         path('', show_profile, name='profile'),
         path('create/', create_profile, name='create profile'),

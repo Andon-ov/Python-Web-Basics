@@ -7,6 +7,7 @@ from expenses_tracker.web_app.models import Profile, Expense
 from expenses_tracker.web_app.views import has_profile
 
 
+# Profile Forms
 class CreateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -45,7 +46,7 @@ class DeleteProfileForm(forms.ModelForm):
         fields = ()
 
 
-# Expenses
+# Expenses Forms
 
 class CreateExpenseForm(forms.ModelForm):
     def clean_price(self):

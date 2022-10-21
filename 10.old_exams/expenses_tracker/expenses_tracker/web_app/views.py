@@ -3,14 +3,14 @@ from django.shortcuts import render, redirect
 from expenses_tracker.core.prifile_utils import has_profile
 from expenses_tracker.web_app.forms import CreateProfileForm, EditeProfileForm, CreateExpenseForm, \
     EditeExpenseForm, DeleteExpenseForm, DeleteProfileForm
-from expenses_tracker.web_app.models import Expense
+from expenses_tracker.web_app.models import Expense, Profile
 
 
 def show_index(request):
-    profile = has_profile()
-    if profile is None:
+    if not Profile.objects.exists():
         return redirect('create profile')
 
+    profile = has_profile()
     expenses = Expense.objects.all()
 
     context = {
@@ -65,8 +65,6 @@ def delete_expense(request, pk):
 
 
 # Profile views
-
-
 def create_profile(request):
     if request.method == 'POST':
         form = CreateProfileForm(request.POST, request.FILES)
