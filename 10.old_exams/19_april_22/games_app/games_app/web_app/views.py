@@ -106,7 +106,7 @@ def create_profile(request):
 def show_profile(request):
     games = GameModel.objects.all()
     game_count = 0
-    game_rating = 0
+    game_rating = 0.0
     if GameModel.objects.exists():
         game_count = len(games)
         game_rating = sum([x.rating for x in games]) / game_count

@@ -11,7 +11,7 @@
                      src="{{ game.image_url }}"
                      alt='game image'/>
                 <!-- title and rating -->
-                <h1>{{ game.title }} <span class="levels">Rating: {{ game.rating }}</span></h1>
+                <h1>{{ game.title }} <span class="levels">Rating: {{ game.rating|floatformat }}</span></h1>
                 <!-- game category -->
                 <p><span class="type">Category: {{ game.category }}</span></p>
                 {% if game.max_Level %}
