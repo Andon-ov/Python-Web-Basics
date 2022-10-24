@@ -15,7 +15,8 @@
 
         <!-- Registration -->
         <section id="registerPage">
-            <form method="post">
+            <form method="post" action="{% url 'home page' %}">
+
                 <fieldset>
                     <legend>Profile</legend>
                     {% csrf_token %}

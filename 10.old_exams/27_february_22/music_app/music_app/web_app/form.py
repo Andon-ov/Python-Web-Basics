@@ -3,7 +3,7 @@ from django import forms
 from music_app.web_app.models import Profile, Album
 
 
-class CreatProfileForm(forms.ModelForm):
+class ProfileBaseForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('username', 'email', 'age')
@@ -15,13 +15,27 @@ class CreatProfileForm(forms.ModelForm):
         }
 
 
-class EditProfileForm(forms.ModelForm):
+class CreatProfileForm(ProfileBaseForm):
+    pass
+
+
+class EditProfileForm(ProfileBaseForm):
+    pass
+
+
+class DeleteProfileForm(ProfileBaseForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ()
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+            Album.objects.all().delete()
+            return self.instance
 
 
-class CreateAlbumForm(forms.ModelForm):
+class AlbumBaseForm(forms.ModelForm):
     class Meta:
         model = Album
 
@@ -33,36 +47,27 @@ class CreateAlbumForm(forms.ModelForm):
         widgets = {
             'album_name': forms.TextInput(attrs={'placeholder': 'Album Name'}),
             'artist': forms.TextInput(attrs={'placeholder': 'Artist'}),
-            'description': forms.TextInput(attrs={'placeholder': 'Description'}),
-            'image_url': forms.TextInput(attrs={'placeholder': 'Image URL'}),
-            'price': forms.TextInput(attrs={'placeholder': 'Price'})
+            'description': forms.Textarea(attrs={'placeholder': 'Description'}),
+            'image_url': forms.URLInput(attrs={'placeholder': 'Image URL'}),
+            'price': forms.NumberInput(attrs={'placeholder': 'Price'})
         }
 
 
-class EditAlbumForm(forms.ModelForm):
-    class Meta:
-        model = Album
-        fields = ('album_name', 'artist', 'genre', 'description', 'image_url', 'price')
-        labels = {
-            'album_name': 'Album Name',
-            'image_url': 'Image URL',
-        }
+class CreateAlbumForm(AlbumBaseForm):
+    pass
 
 
-class DeleteAlbumForm(forms.ModelForm):
+class EditAlbumForm(AlbumBaseForm):
+    pass
+
+
+class DeleteAlbumForm(AlbumBaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for _, field in self.fields.items():
             field.disabled = True
 
     def save(self, commit=True):
-        self.instance.delete()
+        if commit:
+            self.instance.delete()
         return self.instance
-
-    class Meta:
-        model = Album
-        fields = ('album_name', 'artist', 'genre', 'description', 'image_url', 'price')
-        labels = {
-            'album_name': 'Album Name',
-            'image_url': 'Image URL',
-        }

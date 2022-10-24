@@ -15,6 +15,5 @@ urlpatterns = (
     path('profile/', include([
         path('details/', details_profile, name='profile details'),
         path('delete/', delete_profile, name='delete profile'),
-        path('create/', create_profile, name='create profile'),
     ])),
 )

@@ -8,7 +8,7 @@
             <h1>All Albums</h1>
             {% for album in albums %}
                 <div class="card-box">
-                    <img src="{{ album.image_url }}" alt="Cover Image">
+                    <img src="{{ album.image_url }}" alt="{{ album.album_name }}">
                     <div>
                         <div class="text-center">
                             <p class="name">Name: {{ album.album_name }}</p>

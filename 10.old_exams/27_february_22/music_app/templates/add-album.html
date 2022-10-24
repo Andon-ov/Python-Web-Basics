@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% block content %}
     <section class="createPage">
-        <form method="post">
+        <form method="post" action="{% url 'add album' %}">
             <fieldset>
                 <legend>Add Album</legend>
                 <div class="container">
