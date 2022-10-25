@@ -1,29 +1,27 @@
-{% include 'base/base.html' %}
-{% block contant %}
+{% extends 'base/base.html' %}
+{% block content %}
 
+    <h1>My Recipes</h1>
     {% if not recipes %}
         <h2>There are no recipes.</h2>
     {% else %}
-        <h1>My Recipes</h1>
+        <div class="items-container">
+
         {% for recipe in recipes %}
+            <div class="item">
 
-            <div class="items-container">
-                <div class="item">
-                    <h2>{{ recipe.title }}</h2>
-                    <img class="detail-img" src="{{ recipe.image_url }}" alt="recipe-image">
-
-                    <div class="recipe-info">
-                        {{ recipe.description }}
-                    </div>
-
-                    <div class="buttons-container">
-                        <a class="button detail" href="{% url 'recipe details page' recipe.pk %}">Details</a>
-                        <a class="button edit" href="{% url 'edit recipe page' recipe.pk %}">Edit</a>
-                        <a class="button delete" href="{% url 'delete recipe page' recipe.pk %}">Delete</a>
-                    </div>
-
+                <h2>{{ recipe.title }}</h2>
+                <img class="detail-img" src="{{ recipe.image_url }}" alt="{{ recipe.title }}">
+                <div class="recipe-info">
+                    {{ recipe.description }}
+                </div>
+                <div class="buttons-container">
+                    <a class="button detail" href="{% url 'recipe details page' pk=recipe.pk %}">Details</a>
+                    <a class="button edit" href="{% url 'edit recipe page' pk=recipe.pk %}">Edit</a>
+                    <a class="button delete" href="{% url 'delete recipe page' pk=recipe.pk %}">Delete</a>
                 </div>
             </div>
         {% endfor %}
+
     {% endif %}
 {% endblock %}

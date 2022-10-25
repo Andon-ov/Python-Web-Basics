@@ -6,17 +6,29 @@ class Recipe(models.Model):
     INGREDIENTS_MAX_LENGTH = 250
 
     title = models.CharField(
-        max_length=TITLE_MAX_LENGTH
+        max_length=TITLE_MAX_LENGTH,
+        blank=False,
+        null=False
     )
-    image_url = models.URLField()
-
-    description = models.TextField()
-
+    image_url = models.URLField(
+        verbose_name='Image URL',
+        blank=False,
+        null=False
+    )
+    description = models.TextField(
+        blank=False,
+        null=False
+    )
     ingredients = models.CharField(
-        max_length=INGREDIENTS_MAX_LENGTH
+        max_length=INGREDIENTS_MAX_LENGTH,
+        blank=False,
+        null=False
+    )
+    time = models.IntegerField(
+        verbose_name='Time(Minutes)',
+        blank=False,
+        null=False
     )
 
-    time = models.IntegerField()
-
-    def __str__(self):
-        return self.title
+    class Meta:
+        ordering = ('pk',)

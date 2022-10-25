@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from recipes.web_app.form import DeleteRecipeForm, EditRecipeForm, CreateRecipeForm
+from recipes.web_app.forms import RecipeCreateForm, RecipeEditeForm, RecipeDeleteForm
 from recipes.web_app.models import Recipe
 
 
@@ -12,57 +12,58 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def add_recipe(request):
+def create_recipe(request):
     if request.method == 'POST':
-        form = CreateRecipeForm(request.POST)
+        form = RecipeCreateForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('home page')
     else:
-        form = CreateRecipeForm()
+        form = RecipeCreateForm()
     context = {
-        'form': form
+        'form': form,
     }
-
     return render(request, 'create.html', context)
 
 
 def edit_recipe(request, pk):
-    recipe = Recipe.objects.get(pk=pk)
+    recipe = Recipe.objects.filter(pk=pk).get()
     if request.method == 'POST':
-        form = EditRecipeForm(request.POST, instance=recipe)
+        form = RecipeEditeForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
             return redirect('home page')
     else:
-        form = EditRecipeForm(instance=recipe)
+        form = RecipeEditeForm(instance=recipe)
     context = {
-        'form': form
+        'form': form,
+        'recipe': recipe,
     }
-
     return render(request, 'edit.html', context)
 
 
 def delete_recipe(request, pk):
-    recipe = Recipe.objects.get(pk=pk)
+    recipe = Recipe.objects.filter(pk=pk).get()
     if request.method == 'POST':
-        form = DeleteRecipeForm(request.POST, instance=recipe)
+        form = RecipeDeleteForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
             return redirect('home page')
     else:
-        form = DeleteRecipeForm(instance=recipe)
+        form = RecipeDeleteForm(instance=recipe)
     context = {
-        'form': form
+        'form': form,
+        'recipe': recipe,
     }
     return render(request, 'delete.html', context)
 
 
-def details_recipe(request, pk):
-    recipe = Recipe.objects.get(pk=pk)
-    ingredients = recipe.ingredients.split(',')
+def show_recipe(request, pk):
+    recipe = Recipe.objects.filter(pk=pk).get()
+    all_ingredients = [x for x in recipe.ingredients.split(', ')]
+
     context = {
+        'all_ingredients': all_ingredients,
         'recipe': recipe,
-        'ingredients': ingredients
     }
     return render(request, 'details.html', context)
