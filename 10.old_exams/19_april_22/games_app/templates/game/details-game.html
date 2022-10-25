@@ -11,7 +11,7 @@
                      src="{{ game.image_url }}"
                      alt='game image'/>
                 <!-- title and rating -->
-                <h1>{{ game.title }} <span class="levels">Rating: {{ game.rating|floatformat }}</span></h1>
+                <h1>{{ game.title }} <span class="levels">Rating: {{ game.rating|floatformat:1 }}</span></h1>
                 <!-- game category -->
                 <p><span class="type">Category: {{ game.category }}</span></p>
                 {% if game.max_Level %}
@@ -29,8 +29,8 @@
 
             <!-- Edit/Delete buttons -->
             <div class="buttons">
-                <a href="{% url 'edit game page' game.pk %}" class="button">Edit</a>
-                <a href="{% url 'delete game page' game.pk %}" class="button">Delete</a>
+                <a href="{% url 'edit game page' pk=game.pk %}" class="button">Edit</a>
+                <a href="{% url 'delete game page' pk=game.pk %}" class="button">Delete</a>
             </div>
         </div>
     </section>

@@ -6,7 +6,7 @@
             <h1>Are you sure you want to delete your profile?</h1>
 
             <!-- delete profile form -->
-            <form id='delete' method="post">
+            <form id='delete' method="post" action="{% url 'delete profile page' %}">
                 {% csrf_token %}
                 {{ form }}
                 <!-- confirm button -->

@@ -28,7 +28,7 @@
                 <!-- total number of games -->
                 <p class="text">Total games: {{ game_count }}</p>
                 <!-- average rating for all games -->
-                <p class="text">Average rating: {{ game_rating|floatformat }}</p>
+                <p class="text">Average rating: {{ game_rating|floatformat:1 }}</p>
                 <!-- Edit/Delete buttons -->
                 <div class="buttons">
                     <a href="{% url 'edit profile page' %}" class="button">Edit</a>

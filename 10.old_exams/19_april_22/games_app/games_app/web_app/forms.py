@@ -22,8 +22,9 @@ class EditeProfileForm(forms.ModelForm):
 class DeleteProfileForm(forms.ModelForm):
 
     def save(self, commit=True):
-        self.instance.delete()
-        GameModel.objects.all().delete()
+        if commit:
+            self.instance.delete()
+            GameModel.objects.all().delete()
         return self.instance
 
     class Meta:
@@ -31,28 +32,27 @@ class DeleteProfileForm(forms.ModelForm):
         fields = ()
 
 
-class CreateGameModelForm(forms.ModelForm):
+class BaseGameModelForm(forms.ModelForm):
     class Meta:
         model = GameModel
         fields = ('title', 'category', 'rating', 'max_Level', 'image_url', 'summary',)
 
 
-class EditeGameModelForm(forms.ModelForm):
-    class Meta:
-        model = GameModel
-        fields = ('title', 'category', 'rating', 'max_Level', 'image_url', 'summary',)
+class CreateGameModelForm(BaseGameModelForm):
+    pass
 
 
-class DeleteGameModelForm(forms.ModelForm):
+class EditeGameModelForm(BaseGameModelForm):
+    pass
+
+
+class DeleteGameModelForm(BaseGameModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for _, field in self.fields.items():
             field.disabled = True
 
     def save(self, commit=True):
-        self.instance.delete()
+        if commit:
+            self.instance.delete()
         return self.instance
-
-    class Meta:
-        model = GameModel
-        fields = ('title', 'category', 'rating', 'max_Level', 'image_url', 'summary',)

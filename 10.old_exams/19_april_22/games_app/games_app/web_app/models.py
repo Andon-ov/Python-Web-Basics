@@ -112,3 +112,6 @@ class GameModel(models.Model):
         blank=True,
         null=True,
     )
+
+    class Meta:
+        ordering = ('id',)

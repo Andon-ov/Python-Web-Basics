@@ -6,21 +6,22 @@ from games_app.web_app.models import GameModel, Profile
 
 
 def has_profile():
-    profile = Profile.objects.first()
-    if profile:
-        return profile
-    return None
+    try:
+        return Profile.objects.first()
+    except Profile.DoesNotExist as ex:
+        return None
 
 
 # home
 def show_index(request):
-    if not Profile.objects.exists():
-        redirect('create profile page')
+    if has_profile() is None:
+        return redirect('create profile page')
+
     profile = has_profile()
     context = {
         'profile': profile
     }
-    return render(request, 'home-page.html', context)
+    return render(request, 'common/home-page.html', context)
 
 
 # dashboard
@@ -29,7 +30,7 @@ def show_dashboard(request):
     context = {
         'games': games
     }
-    return render(request, 'dashboard.html', context)
+    return render(request, 'common/dashboard.html', context)
 
 
 # game
@@ -45,7 +46,7 @@ def create_game(request):
         'form': form
     }
 
-    return render(request, 'create-game.html', context)
+    return render(request, 'game/create-game.html', context)
 
 
 def show_game(request, pk):
@@ -54,7 +55,7 @@ def show_game(request, pk):
         'game': game
     }
 
-    return render(request, 'details-game.html', context)
+    return render(request, 'game/details-game.html', context)
 
 
 def edite_game(request, pk):
@@ -67,9 +68,10 @@ def edite_game(request, pk):
     else:
         form = EditeGameModelForm(instance=game)
     context = {
-        'form': form
+        'form': form,
+        'game': game,
     }
-    return render(request, 'edit-game.html', context)
+    return render(request, 'game/edit-game.html', context)
 
 
 def delete_game(request, pk):
@@ -82,9 +84,10 @@ def delete_game(request, pk):
     else:
         form = DeleteGameModelForm(instance=game)
     context = {
-        'form': form
+        'form': form,
+        'game': game,
     }
-    return render(request, 'delete-game.html', context)
+    return render(request, 'game/delete-game.html', context)
 
 
 # profile
@@ -100,7 +103,7 @@ def create_profile(request):
         'form': form
     }
 
-    return render(request, 'create-profile.html', context)
+    return render(request, 'profile/create-profile.html', context)
 
 
 def show_profile(request):
@@ -116,7 +119,7 @@ def show_profile(request):
         'game_count': game_count,
         'game_rating': game_rating,
     }
-    return render(request, 'details-profile.html', context)
+    return render(request, 'profile/details-profile.html', context)
 
 
 def edite_profile(request):
@@ -132,7 +135,7 @@ def edite_profile(request):
     context = {
         'form': form
     }
-    return render(request, 'edit-profile.html', context)
+    return render(request, 'profile/edit-profile.html', context)
 
 
 def delete_profile(request):
@@ -148,4 +151,4 @@ def delete_profile(request):
     context = {
         'form': form
     }
-    return render(request, 'delete-profile.html', context)
+    return render(request, 'profile/delete-profile.html', context)
