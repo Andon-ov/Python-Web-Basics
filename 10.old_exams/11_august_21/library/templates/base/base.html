@@ -2,36 +2,31 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="{% static 'images/library.jpg' %}" type="image/x-icon"/>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Online Books Library</title>
 </head>
-
 <body>
 <div id="container">
     <header id="site-header">
-
+        {% have_a_profile as my_profile %}
         <!-- Navigation -->
         <nav class="navbar">
             <section class="navbar-dashboard">
-                {% have_a_profile as profil %}
-                {% if not profil %}
-                    <a href="{% url 'home page' %}">Dashboard</a>
-                {% else %}
-                    <a href="{% url 'home page' %}">Dashboard</a>
-                    <div id="user">
-                        <span>Welcome, {{ profil }}</span>
+                <a href="{% url 'home' %}">Dashboard</a>
+                <div id="user">
+                    {% if my_profile %}
+                        <span>Welcome, {{ my_profile }}</span>
                         <a class="button" href="{% url 'add book' %}">Add Book</a>
-                        <a class="button" href="{% url 'profile' %}">Profile</a>
-                    </div>
-                {% endif %}
+                        <a class="button" href="{% url 'show profile' %}">Profile</a>
+                    {% endif %}
+                </div>
             </section>
         </nav>
     </header>
-    {% block contant %}
+    {% block content %}
 
     {% endblock %}
     <footer id="site-footer">

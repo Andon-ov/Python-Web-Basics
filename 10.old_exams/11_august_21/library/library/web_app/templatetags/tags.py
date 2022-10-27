@@ -7,8 +7,7 @@ register = Library()
 
 @register.simple_tag()
 def have_a_profile():
-    try:
-        profile = Profile.objects.all()[0]
+    if Profile.objects.exists():
+        profile = Profile.objects.first()
         return profile.first_name
-    except IndexError:
-        return None
+    return None
